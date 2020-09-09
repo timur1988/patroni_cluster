@@ -1,0 +1,3 @@
+---
+- name: stop etcd
+  service: name=etcd state=stoped

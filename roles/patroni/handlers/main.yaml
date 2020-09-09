@@ -1,0 +1,10 @@
+---
+- name: stop postgresql
+  service:
+     name=postgresql
+     state=stopped
+
+- name: restart patroni
+  service:
+     name=patroni
+     state=restarted

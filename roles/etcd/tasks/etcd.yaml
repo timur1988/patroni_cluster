@@ -1,0 +1,12 @@
+---
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+
+- name: Install etcd 
+  apt:  name=etcd state=present
+
+- name: Copy file from remote
+  template: src=etcd.j2 dest=/etc/default/etcd owner=root group=root mode=0744
+

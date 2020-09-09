@@ -1,0 +1,21 @@
+- name: Configure postgresql repository key
+  apt_key:
+    url: "{{ postgresql_apt_key_url }}"
+
+- name: Configure postgresql repository
+  apt_repository:
+    repo: "{{ postgresql_apt_repo }}"
+
+- name: postgresql database-cluster manager package
+  package:
+    name: postgresql-common
+    update_cache: yes
+
+- name: Install postgresql packages
+  package:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    update_cache: yes
+  with_items:
+    - "{{ patroni_postgresql_packages }}"		
+    

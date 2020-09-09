@@ -1,0 +1,9 @@
+ETCD_NAME="{{ ansible_hostname }}"
+ETCD_LISTEN_PEER_URLS=http://{{ ansible_default_ipv4.address }}:2380,http://127.0.0.1:7001
+ETCD_LISTEN_CLIENT_URLS=http://127.0.0.1:2379, http://{{ ansible_default_ipv4.address }}:2379
+ETCD_INITIAL_ADVERTISE_PEER_URLS=http://{{ ansible_default_ipv4.address }}:2380
+ETCD_INITIAL_CLUSTER=etcd-1=http://49.12.0.169:2380,etcd-2=http://168.119.96.21:2380
+ETCD_ADVERTISE_CLIENT_URLS=http://{{ ansible_default_ipv4.address }}:2379
+ETCD_INITIAL_CLUSTER_TOKEN=cluster
+ETCD_INITIAL_CLUSTER_STATE=new
+

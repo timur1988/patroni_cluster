@@ -1,0 +1,16 @@
+---
+
+- name: Recursively remove directory
+  file:
+    path: /var/lib/etcd/default
+    state: absent
+
+- name: add dir etcd
+  file:
+    path: /var/lib/etcd/default
+    state: directory
+    owner: 'etcd'
+    group: 'etcd'
+    mode: '0755'  
+
+

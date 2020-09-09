@@ -1,0 +1,15 @@
+---
+
+- name: Install Haproxy
+  apt:
+    name=haproxy
+    state=latest
+
+- name: Create Haproxy config
+  template:
+      src=haproxy.j2
+      dest=/etc/haproxy/haproxy.cfg
+      owner=root
+      group=root
+      mode=0744
+  notify: restart haproxy

@@ -1,0 +1,17 @@
+patroni_postgresql_version: 12
+postgres_user: postgres
+postgres_passwd: QweAsdZxc123
+scope: postgres
+namespace: /db/
+
+patroni_pip_packages:
+  - { name: "patroni",                    state: "latest", umask: "0022", executable: "pip3" }
+  - { name: "setuptools",                 state: "latest",  umask: "0022", executable: "pip3" }
+  - { name: "psycopg2-binary",            state: "latest",  umask: "0022", executable: "pip3" }
+  - { name: "python-etcd",                state: "latest", umask: "0022", executable: "pip3" }
+patroni_dcs: etcd
+patroni_dcs_exists: true
+SOURCE_FOLDER: /usr/lib/postgresql/12/bin/
+patroni_watchdog_mode: automatic # use quotes for 'off' value
+patroni_watchdog_device: /dev/watchdog
+patroni_watchdog_safety_margin: 5

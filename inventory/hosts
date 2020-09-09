@@ -1,0 +1,4 @@
+[etcd-haproxy-node-1]
+[etcd-haproxy-node-2]
+[patroni-node-1]
+[patroni-node-2]

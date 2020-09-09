@@ -1,0 +1,24 @@
+---
+
+- hosts: etcd-haproxy-node-1
+  roles:
+    - etcd
+    - haproxy
+    - etcd-cluster
+
+- hosts: etcd-haproxy-node-2
+  roles:
+    - etcd
+    - haproxy
+    - etcd-cluster
+
+- hosts: patroni-node-1
+  roles:
+    - patroni
+    - pgbouncer
+
+- hosts: patroni-node-2
+  roles:
+    - patroni
+    - pgbouncer
+

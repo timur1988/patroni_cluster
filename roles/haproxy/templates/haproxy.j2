@@ -1,0 +1,29 @@
+global
+    maxconn 200
+
+defaults
+    log global
+    mode tcp
+    retries 2
+    timeout client 30m
+    timeout connect 4s
+    timeout server 30m
+    timeout check 5s
+
+listen stats
+    mode http
+    bind 127.0.0.1:7000
+    stats enable
+    stats uri /
+
+listen postgres
+    bind *:5000
+    option httpchk
+    http-check expect status 200
+    default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
+     {% for item in groups['etcd-haproxy-node-1']%}
+    server postgresql0 {{ item }}:6432 maxconn 200 check port 8008
+     {% endfor %}
+     {% for item in groups['etcd-haproxy-node-2']%}
+    server postgresql1 {{ item }}:6432 maxconn 200 check port 8008
+     {% endfor %}

@@ -1,0 +1,49 @@
+---
+- name: Install patroni packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - python3-pip
+    - python3-dev
+    - libpq-dev
+    - python3-click
+    - python3-cdiff
+    - python3-colorama
+    - python3-dateutil
+    - python3-dnspython
+    - python3-etcd
+    - python3-prettytable
+    - python3-psutil
+    - python3-psycopg2  
+- name: Install pip packages for patroni
+  pip:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    umask: "{{ item.umask }}"
+    executable: "{{ item.executable }}"
+  with_items:
+    - "{{ patroni_pip_packages }}"
+
+- name: create /data/patroni
+  file: state=directory dest=/data/patroni owner=postgres group=postgres mode=700
+
+- name: Copy config patroni
+  template: 
+      src: patroni.yaml.j2 
+      dest: /etc/patroni.yml 
+      owner: root 
+      group: root 
+      mode: 0744
+  notify: stop postgresql
+- name: Copy service patroni
+  template: 
+      src=patroni.service.j2 
+      dest=/etc/systemd/system/patroni.service 
+      owner=root 
+      group=root 
+      mode=0600
+  notify: restart patroni
+
+- name: Link /usr/bin/ PATRONI
+  shell: ln -s /usr/lib/postgresql/12/bin/* /usr/sbin/
+  args:
+    executable: /bin/bash

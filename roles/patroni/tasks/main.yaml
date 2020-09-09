@@ -1,0 +1,7 @@
+---
+
+- include: postgres.yaml
+- include: patroni.yaml
+- include: watchdog.yaml
+
+

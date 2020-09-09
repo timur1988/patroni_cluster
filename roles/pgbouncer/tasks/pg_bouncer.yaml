@@ -1,0 +1,12 @@
+---
+
+- name: Install pgbouncer
+  apt:  name=pgbouncer state=present
+
+- name: Copy file from remote
+  template: src=pgbouncer.ini.j2 dest=/etc/pgbouncer/pgbouncer.ini owner=postgres  group=postgres  mode=0600
+
+- name: Copy file from remote
+  template: src=userlist.txt.j2 dest=/etc/pgbouncer/userlist.txt owner=postgres  group=postgres  mode=0600
+  notify: restart pgbouncer
+
