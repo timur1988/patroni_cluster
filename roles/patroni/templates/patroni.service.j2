@@ -10,6 +10,7 @@ User=postgres
 Group=postgres
 
 ExecStart=/usr/local/bin/patroni /etc/patroni.yml
+ExecReload=/bin/kill -s HUP $MAINPID
 
 KillMode=process
 
